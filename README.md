@@ -1,12 +1,12 @@
 # GV Trucking
 
-Laravel app with **React** (Inertia.js + Vite), **Breeze** auth, **roles & permissions**, **API REST** (Sanctum), and optional **Microsoft sign-in**. Supports **PostgreSQL**, **MySQL**, or **SQLite**.
+Laravel app with **React** (Inertia.js + Vite), **Breeze** auth, **roles & permissions**, **API REST** (Sanctum), and optional **Microsoft sign-in**. Default database: **MySQL** (also supports PostgreSQL or SQLite).
 
 ## Requirements
 
 - PHP 8.2+, Composer
 - Node.js 18+, npm
-- Database: PostgreSQL, MySQL, or SQLite
+- Database: MySQL (default), PostgreSQL, or SQLite
 - (Optional) PHP `zip` extension
 
 ## Install
@@ -14,7 +14,7 @@ Laravel app with **React** (Inertia.js + Vite), **Breeze** auth, **roles & permi
 ```bash
 cp .env.example .env
 php artisan key:generate
-# Set DB_* in .env (PostgreSQL, MySQL, or SQLite)
+# Set DB_* in .env (MySQL by default)
 
 composer install
 php artisan migrate
@@ -40,7 +40,7 @@ npm run dev
 
 | Key | Purpose |
 |-----|---------|
-| `DB_*` | Database connection |
+| `DB_*` | MySQL connection (`DB_CONNECTION=mysql`, port `3306`) |
 | `APP_URL` | Base URL (e.g. `http://localhost:8000`) |
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Optional Microsoft sign-in |
 | `MAIL_*` | Mail (e.g. password reset) |
