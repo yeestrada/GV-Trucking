@@ -1,6 +1,5 @@
 import { usePage } from '@inertiajs/react';
-import { BUSINESS, NAV_ITEMS } from './content';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 
 function IconPhone({ className = 'h-4 w-4' }) {
     return (
@@ -43,10 +42,10 @@ function IconPin({ className = 'h-4 w-4' }) {
 }
 
 export default function LandingFooter() {
-    const { locale, appName } = usePage().props;
-    const { t, format } = useLandingCopy(locale);
+    const { appName } = usePage().props;
+    const { t, format, business } = useFrontpage();
     const year = new Date().getFullYear();
-    const name = appName || BUSINESS.name;
+    const name = appName || business.name;
 
     return (
         <footer className="bg-gv-ink text-white">
@@ -68,10 +67,10 @@ export default function LandingFooter() {
                         {t.footer.quickLinks}
                     </h3>
                     <ul className="mt-4 space-y-2">
-                        {NAV_ITEMS.map((link) => (
-                            <li key={link.href}>
+                        {(t.nav.items || []).map((link) => (
+                            <li key={`${link.href}-${link.label}`}>
                                 <a href={link.href} className="text-white/75 transition hover:text-gv-chrome">
-                                    {t.nav[link.key]}
+                                    {link.label}
                                 </a>
                             </li>
                         ))}
@@ -100,25 +99,25 @@ export default function LandingFooter() {
                     <ul className="mt-4 space-y-3 text-white/80">
                         <li>
                             <a
-                                href={BUSINESS.phoneHref}
+                                href={business.phoneHref}
                                 className="inline-flex items-center gap-2 transition hover:text-gv-chrome"
                             >
                                 <IconPhone className="h-4 w-4 shrink-0 text-gv-chrome" />
-                                <span>{BUSINESS.phone}</span>
+                                <span>{business.phone}</span>
                             </a>
                         </li>
                         <li>
                             <a
-                                href={`mailto:${BUSINESS.email}`}
+                                href={`mailto:${business.email}`}
                                 className="flex items-start gap-2 transition hover:text-gv-chrome"
                             >
                                 <IconMail className="mt-0.5 h-4 w-4 shrink-0 text-gv-chrome" />
-                                <span className="min-w-0 break-words">{BUSINESS.email}</span>
+                                <span className="min-w-0 break-words">{business.email}</span>
                             </a>
                         </li>
                         <li className="flex items-start gap-2">
                             <IconPin className="mt-0.5 h-4 w-4 shrink-0 text-gv-chrome" />
-                            <span>{BUSINESS.location}</span>
+                            <span>{business.location}</span>
                         </li>
                     </ul>
                 </div>

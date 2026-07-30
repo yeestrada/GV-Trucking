@@ -1,8 +1,7 @@
 import LanguageSelector from '@/Components/LanguageSelector';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { BUSINESS, NAV_ITEMS } from './content';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 
 function IconMenu({ className = 'h-5 w-5' }) {
     return (
@@ -34,8 +33,8 @@ function IconPhone({ className = 'h-4 w-4' }) {
 }
 
 export default function LandingNavbar({ onSignIn }) {
-    const { auth, locale } = usePage().props;
-    const { t } = useLandingCopy(locale);
+    const { auth } = usePage().props;
+    const { t, business } = useFrontpage();
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
@@ -62,22 +61,22 @@ export default function LandingNavbar({ onSignIn }) {
             }`}
         >
             <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-                <a href="#home" className="min-w-0 shrink-0" aria-label={BUSINESS.name}>
+                <a href="#home" className="min-w-0 shrink-0" aria-label={business.name}>
                     <img
                         src="/images/GV_Trucking_Logo.png"
-                        alt={BUSINESS.name}
+                        alt={business.name}
                         className="h-14 w-auto object-contain sm:h-16 lg:h-[4.5rem]"
                     />
                 </a>
 
                 <nav className="hidden items-center gap-1 lg:flex">
-                    {NAV_ITEMS.map((link) => (
+                    {(t.nav.items || []).map((link) => (
                         <a
-                            key={link.href}
+                            key={`${link.href}-${link.label}`}
                             href={link.href}
                             className="rounded-md px-3 py-2 text-xs font-bold uppercase tracking-[0.12em] text-white/90 transition hover:bg-white/10 hover:text-gv-chrome"
                         >
-                            {t.nav[link.key]}
+                            {link.label}
                         </a>
                     ))}
                 </nav>
@@ -86,11 +85,11 @@ export default function LandingNavbar({ onSignIn }) {
                     <LanguageSelector buttonClass="border border-white/20 bg-black/30 text-white hover:bg-black/50" />
 
                     <a
-                        href={BUSINESS.phoneHref}
+                        href={business.phoneHref}
                         className="hidden items-center gap-2 rounded-full bg-gv-chrome px-4 py-2.5 text-sm font-bold text-gv-ink transition hover:bg-white sm:inline-flex"
                     >
                         <IconPhone />
-                        {BUSINESS.phone}
+                        {business.phone}
                     </a>
 
                     {auth?.user ? (
@@ -125,23 +124,23 @@ export default function LandingNavbar({ onSignIn }) {
             {open && (
                 <div className="border-t border-white/10 bg-gv-ink lg:hidden">
                     <nav className="mx-auto flex max-w-7xl flex-col px-4 py-4 sm:px-6">
-                        {NAV_ITEMS.map((link) => (
+                        {(t.nav.items || []).map((link) => (
                             <a
-                                key={link.href}
+                                key={`${link.href}-${link.label}`}
                                 href={link.href}
                                 className="border-b border-white/10 py-3 font-display text-lg uppercase tracking-wide text-white"
                                 onClick={() => setOpen(false)}
                             >
-                                {t.nav[link.key]}
+                                {link.label}
                             </a>
                         ))}
                         <a
-                            href={BUSINESS.phoneHref}
+                            href={business.phoneHref}
                             className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-gv-chrome px-4 py-3 font-bold text-gv-ink"
                             onClick={() => setOpen(false)}
                         >
                             <IconPhone />
-                            {BUSINESS.phone}
+                            {business.phone}
                         </a>
                         {auth?.user ? (
                             <Link

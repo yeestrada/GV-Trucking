@@ -8,7 +8,7 @@ import LandingNavbar from '@/Components/Landing/LandingNavbar';
 import LandingServices from '@/Components/Landing/LandingServices';
 import LandingTrustBar from '@/Components/Landing/LandingTrustBar';
 import LandingWhyUs from '@/Components/Landing/LandingWhyUs';
-import { useLandingCopy } from '@/Components/Landing/i18n';
+import { useFrontpage } from '@/Components/Landing/i18n';
 import Modal from '@/Components/Modal';
 import { Head, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
@@ -16,7 +16,6 @@ import { useState } from 'react';
 export default function Welcome() {
     const {
         appName,
-        locale,
         validationErrors = {},
         canResetPassword,
         googleConfigured,
@@ -24,7 +23,7 @@ export default function Welcome() {
         loginErrorDetail,
         openLoginModal = false,
     } = usePage().props;
-    const { t } = useLandingCopy(locale);
+    const { t } = useFrontpage();
     const brand = appName || 'GV Trucking';
     const hasLoginErrors = validationErrors && (validationErrors.email?.length || validationErrors.password?.length);
     const hasLoginError = !!loginError;

@@ -1,10 +1,7 @@
-import { usePage } from '@inertiajs/react';
-import { ABOUT_IMAGE, BUSINESS } from './content';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 
 export default function LandingAbout() {
-    const { locale } = usePage().props;
-    const { t, format } = useLandingCopy(locale);
+    const { t, format, business, media } = useFrontpage();
 
     return (
         <section id="about" className="scroll-mt-24 overflow-hidden bg-white py-20">
@@ -33,15 +30,15 @@ export default function LandingAbout() {
                     <div className="absolute -inset-3 -z-10 rotate-2 rounded-3xl bg-gv-chrome/50" />
                     <div className="absolute -inset-3 -z-20 -rotate-2 rounded-3xl bg-gv-blue/30" />
                     <img
-                        src={ABOUT_IMAGE}
+                        src={media.aboutImage}
                         alt={t.about.title}
                         className="relative aspect-[4/5] w-full rounded-3xl object-cover gv-shadow-card sm:aspect-[5/4]"
                         loading="lazy"
                     />
                     <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-gv-ink/90 p-4 text-white backdrop-blur sm:left-auto sm:right-4 sm:w-64">
-                        <p className="font-display text-xl uppercase text-gv-chrome">{BUSINESS.contactName}</p>
+                        <p className="font-display text-xl uppercase text-gv-chrome">{business.contactName}</p>
                         <p className="mt-1 text-sm text-white/80">
-                            {format(t.about.ownerRole, { location: BUSINESS.location })}
+                            {format(t.about.ownerRole, { location: business.location })}
                         </p>
                     </div>
                 </div>

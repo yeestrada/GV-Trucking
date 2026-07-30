@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\FrontpageController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProfileController;
+use App\Services\FrontpageService;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,6 +24,7 @@ Route::get('/', function () {
         'loginError' => session('error'),
         'loginErrorDetail' => session('login_error_detail'),
         'openLoginModal' => session()->pull('openLoginModal', false),
+        'frontpage' => app(FrontpageService::class)->all(),
     ]);
 });
 
@@ -57,6 +60,10 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::post('/permissions', [PermissionController::class, 'store'])->name('permissions.store');
     Route::put('/permissions/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
     Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+
+    Route::get('/config/frontpage', [FrontpageController::class, 'index'])->name('config.frontpage');
+    Route::put('/config/frontpage/{section}', [FrontpageController::class, 'update'])->name('config.frontpage.update');
+    Route::post('/config/frontpage/media', [FrontpageController::class, 'uploadMedia'])->name('config.frontpage.media');
 });
 
 require __DIR__.'/auth.php';

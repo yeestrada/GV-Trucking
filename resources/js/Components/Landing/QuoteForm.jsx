@@ -1,6 +1,5 @@
-import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 
 function IconCheck({ className = 'h-3.5 w-3.5' }) {
     return (
@@ -11,8 +10,7 @@ function IconCheck({ className = 'h-3.5 w-3.5' }) {
 }
 
 export default function QuoteForm({ idPrefix = 'hero', className = '' }) {
-    const { locale } = usePage().props;
-    const { t } = useLandingCopy(locale);
+    const { t } = useFrontpage();
     const [submitted, setSubmitted] = useState(false);
 
     const fields = [

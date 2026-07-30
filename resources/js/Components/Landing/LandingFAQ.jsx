@@ -1,6 +1,5 @@
-import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 
 function IconChevron({ className = 'h-5 w-5' }) {
     return (
@@ -11,8 +10,7 @@ function IconChevron({ className = 'h-5 w-5' }) {
 }
 
 export default function LandingFAQ() {
-    const { locale } = usePage().props;
-    const { t } = useLandingCopy(locale);
+    const { t, locale } = useFrontpage();
     const [openIndex, setOpenIndex] = useState(0);
 
     return (

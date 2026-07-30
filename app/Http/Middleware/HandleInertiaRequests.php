@@ -73,6 +73,7 @@ class HandleInertiaRequests extends Middleware
             'openProfileModal' => $request->session()->pull('openProfileModal', false),
             'flash' => [
                 'error' => $request->session()->pull('error'),
+                'success' => $request->session()->pull('success'),
             ],
             'locale' => $locale,
             'translations' => $translations,

@@ -1,6 +1,4 @@
-import { usePage } from '@inertiajs/react';
-import { SERVICE_IMAGES } from './content';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 
 function IconArrowUpRight({ className = 'h-4 w-4' }) {
     return (
@@ -11,8 +9,7 @@ function IconArrowUpRight({ className = 'h-4 w-4' }) {
 }
 
 export default function LandingServices() {
-    const { locale } = usePage().props;
-    const { t } = useLandingCopy(locale);
+    const { t, media } = useFrontpage();
 
     return (
         <section id="services" className="scroll-mt-24 bg-gv-paper py-20">
@@ -35,7 +32,7 @@ export default function LandingServices() {
                         >
                             <div className="relative aspect-[16/10] overflow-hidden">
                                 <img
-                                    src={SERVICE_IMAGES[index]}
+                                    src={media.serviceImages[index]}
                                     alt={service.title}
                                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                                     loading="lazy"

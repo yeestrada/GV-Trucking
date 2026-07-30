@@ -90,6 +90,55 @@ return [
             'roles' => 'Roles',
             'users' => 'Users',
             'permissions' => 'Permissions',
+            'config' => 'Config',
+            'frontpage' => 'Frontpage',
+        ],
+        'config' => [
+            'frontpage_title' => 'Frontpage content',
+            'frontpage_description' => 'Each card is a section of the public landing page. Open a card to edit English and Spanish copy.',
+            'edit_section' => 'Edit section',
+            'sections' => [
+                'hero' => [
+                    'label' => 'Hero',
+                    'description' => 'Top banner: tagline, headline, description, feature bullets, and background image.',
+                ],
+                'trust' => [
+                    'label' => 'Trust bar',
+                    'description' => 'Three value pillars under the hero (capacity, securement, on-time).',
+                ],
+                'services' => [
+                    'label' => 'What we haul',
+                    'description' => 'Services header and flatbed service cards with images.',
+                ],
+                'about' => [
+                    'label' => 'About',
+                    'description' => 'Company story, CTA, photo, and dispatch overlay.',
+                ],
+                'whyUs' => [
+                    'label' => 'Why shippers choose GV',
+                    'description' => 'Reasons grid — title, description, and feature cards.',
+                ],
+                'midCta' => [
+                    'label' => 'Mid CTA banner',
+                    'description' => 'Centered banner: headline and request-capacity button.',
+                ],
+                'faq' => [
+                    'label' => 'FAQ',
+                    'description' => 'Questions brokers ask — header and accordion items.',
+                ],
+                'cta' => [
+                    'label' => 'Final CTA',
+                    'description' => 'Closing section copy next to the quote form.',
+                ],
+                'form' => [
+                    'label' => 'Quote form',
+                    'description' => 'Request capacity form titles, placeholders, button, and consent.',
+                ],
+                'footer' => [
+                    'label' => 'Footer',
+                    'description' => 'Footer blurb, quick links, focus column labels, and contact info.',
+                ],
+            ],
         ],
         'roles' => [
             'title' => 'Roles',

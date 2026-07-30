@@ -52,6 +52,20 @@ function PermissionsIcon({ className = 'h-4 w-4' }) {
     );
 }
 
+function ConfigIcon({ className = 'h-4 w-4' }) {
+    return (
+        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+    );
+}
+
 export default function AdminSidebar({ sidebarOpen = true, onToggleSidebar }) {
     const { translations = {} } = usePage().props;
     const t = (key) => translations[key] ?? key;
@@ -91,12 +105,10 @@ export default function AdminSidebar({ sidebarOpen = true, onToggleSidebar }) {
                 </button>
             </div>
             <nav className={`flex flex-1 flex-col gap-1 px-4 pb-4 pt-1 ${sidebarOpen ? '' : 'hidden'}`}>
-                {/* Administration separator */}
                 <div className="mt-4 mb-1 px-3 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
                     {t('admin.menu.administration')}
                 </div>
 
-                {/* Administration links */}
                 <Link
                     href={route('admin.roles.index')}
                     className={
@@ -139,6 +151,21 @@ export default function AdminSidebar({ sidebarOpen = true, onToggleSidebar }) {
                     <span className="flex items-center gap-2">
                         <PermissionsIcon />
                         <span>{t('admin.menu.permissions')}</span>
+                    </span>
+                </Link>
+
+                <Link
+                    href={route('admin.config.frontpage')}
+                    className={
+                        'rounded-lg px-3 py-2 text-sm font-medium transition ' +
+                        (typeof current === 'string' && current.startsWith('admin.config.frontpage')
+                            ? 'bg-primary-50 text-primary-700 dark:bg-primary-500/30 dark:text-gray-100'
+                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100')
+                    }
+                >
+                    <span className="flex items-center gap-2">
+                        <ConfigIcon />
+                        <span>{t('admin.menu.config')}</span>
                     </span>
                 </Link>
             </nav>

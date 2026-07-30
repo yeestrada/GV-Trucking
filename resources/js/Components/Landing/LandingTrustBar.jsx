@@ -1,5 +1,4 @@
-import { usePage } from '@inertiajs/react';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 
 function IconShield({ className = 'h-6 w-6' }) {
     return (
@@ -51,8 +50,7 @@ function IconArrow({ className = 'h-4 w-4' }) {
 const icons = [IconShield, IconClipboard, IconTimer];
 
 export default function LandingTrustBar() {
-    const { locale } = usePage().props;
-    const { t } = useLandingCopy(locale);
+    const { t } = useFrontpage();
 
     return (
         <section className="relative bg-gv-ink py-16 text-white">

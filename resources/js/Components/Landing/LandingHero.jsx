@@ -1,6 +1,4 @@
-import { usePage } from '@inertiajs/react';
-import { BUSINESS, HERO_IMAGE } from './content';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 import QuoteForm from './QuoteForm';
 
 function IconCheck({ className = 'h-3.5 w-3.5' }) {
@@ -12,14 +10,13 @@ function IconCheck({ className = 'h-3.5 w-3.5' }) {
 }
 
 export default function LandingHero() {
-    const { locale } = usePage().props;
-    const { t } = useLandingCopy(locale);
+    const { t, business, media } = useFrontpage();
 
     return (
         <section id="home" className="relative isolate overflow-hidden">
             <div
                 className="absolute inset-0 -z-20 bg-cover bg-center"
-                style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+                style={{ backgroundImage: `url(${media.heroImage})` }}
                 aria-hidden
             />
             <div className="gv-hero-overlay absolute inset-0 -z-10" aria-hidden />
@@ -27,7 +24,7 @@ export default function LandingHero() {
             <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:px-8 lg:py-20">
                 <div className="text-white">
                     <p className="animate-rise text-sm font-semibold uppercase tracking-[0.2em] text-gv-chrome">
-                        {BUSINESS.tagline}
+                        {t.hero.tagline || business.tagline}
                     </p>
                     <h1 className="animate-rise-delay font-display mt-4 max-w-xl text-4xl font-bold uppercase leading-[1.05] text-balance sm:text-5xl lg:text-6xl">
                         {t.hero.titleBefore}{' '}

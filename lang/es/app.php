@@ -90,6 +90,55 @@ return [
             'roles' => 'Roles',
             'users' => 'Usuarios',
             'permissions' => 'Permisos',
+            'config' => 'Config',
+            'frontpage' => 'Frontpage',
+        ],
+        'config' => [
+            'frontpage_title' => 'Contenido del frontpage',
+            'frontpage_description' => 'Cada tarjeta es una sección de la landing pública. Ábrela para editar el texto en inglés y español.',
+            'edit_section' => 'Editar sección',
+            'sections' => [
+                'hero' => [
+                    'label' => 'Hero',
+                    'description' => 'Banner principal: tagline, titular, descripción, viñetas e imagen de fondo.',
+                ],
+                'trust' => [
+                    'label' => 'Barra de confianza',
+                    'description' => 'Tres pilares bajo el hero (capacidad, amarre, puntualidad).',
+                ],
+                'services' => [
+                    'label' => 'Qué transportamos',
+                    'description' => 'Encabezado de servicios y tarjetas flatbed con imágenes.',
+                ],
+                'about' => [
+                    'label' => 'Nosotros',
+                    'description' => 'Historia de la empresa, CTA, foto y overlay de despacho.',
+                ],
+                'whyUs' => [
+                    'label' => 'Por qué eligen GV',
+                    'description' => 'Cuadrícula de razones: título, descripción y tarjetas.',
+                ],
+                'midCta' => [
+                    'label' => 'CTA intermedio',
+                    'description' => 'Banner centrado: titular y botón para solicitar capacidad.',
+                ],
+                'faq' => [
+                    'label' => 'FAQ',
+                    'description' => 'Preguntas de brokers: encabezado y acordeón.',
+                ],
+                'cta' => [
+                    'label' => 'CTA final',
+                    'description' => 'Texto de cierre junto al formulario de cotización.',
+                ],
+                'form' => [
+                    'label' => 'Formulario de cotización',
+                    'description' => 'Títulos, placeholders, botón y aviso del formulario.',
+                ],
+                'footer' => [
+                    'label' => 'Pie de página',
+                    'description' => 'Blurb, enlaces rápidos, columna de enfoque e información de contacto.',
+                ],
+            ],
         ],
         'roles' => [
             'title' => 'Roles',

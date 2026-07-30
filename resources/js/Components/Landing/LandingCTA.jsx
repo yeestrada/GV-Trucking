@@ -1,6 +1,4 @@
-import { usePage } from '@inertiajs/react';
-import { HERO_IMAGE } from './content';
-import { useLandingCopy } from './i18n';
+import { useFrontpage } from './i18n';
 import QuoteForm from './QuoteForm';
 
 function IconCheck({ className = 'h-3.5 w-3.5' }) {
@@ -12,14 +10,13 @@ function IconCheck({ className = 'h-3.5 w-3.5' }) {
 }
 
 export default function LandingCTA() {
-    const { locale } = usePage().props;
-    const { t } = useLandingCopy(locale);
+    const { t, media } = useFrontpage();
 
     return (
         <section className="relative isolate overflow-hidden bg-gv-ink py-20 text-white">
             <div
                 className="absolute inset-0 -z-20 bg-cover bg-center opacity-40"
-                style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+                style={{ backgroundImage: `url(${media.heroImage})` }}
                 aria-hidden
             />
             <div className="absolute inset-0 -z-10 bg-gradient-to-r from-gv-ink via-gv-ink/95 to-gv-blue-deep/90" />
