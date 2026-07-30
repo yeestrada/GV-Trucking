@@ -28,7 +28,6 @@ function GoogleLogo({ className = 'h-5 w-5' }) {
 }
 
 export default function LoginForm({
-    onClose = null,
     canResetPassword = false,
     status = null,
     error = null,
@@ -38,7 +37,7 @@ export default function LoginForm({
     isModal = false,
     externalErrors = {},
 }) {
-    const { appName, appDebug, translations = {} } = usePage().props;
+    const { appName, translations = {} } = usePage().props;
     const t = (key) => translations[key] ?? key;
     const { data, setData, post, processing, errors: formErrors, reset } = useForm({
         email: '',
@@ -69,27 +68,13 @@ export default function LoginForm({
                 />
             </div>
 
-            <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0 flex-1">
-                    <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                        {t('login.sign_in_to')}
-                    </h1>
-                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                        {t('login.welcome_back')}
-                    </p>
-                </div>
-                {onClose && (
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        className="flex shrink-0 h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500"
-                        aria-label="Close"
-                    >
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                )}
+            <div className="mb-2 text-center sm:text-left">
+                <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                    {t('login.sign_in_to')}
+                </h1>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    {t('login.welcome_back')}
+                </p>
             </div>
 
             <div className="w-full">
@@ -109,25 +94,7 @@ export default function LoginForm({
                     </div>
                 )}
 
-                <div className="mt-6">
-                    <a
-                        href={route('auth.google.redirect')}
-                        className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-                    >
-                        <GoogleLogo />
-                        {t('login.continue_with_google')}
-                    </a>
-                </div>
-                <div className="relative my-6">
-                    <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-200 dark:border-gray-600" />
-                    </div>
-                    <div className="relative flex justify-center">
-                        <span className="bg-white px-2 text-sm text-gray-500 dark:bg-gray-800 dark:text-gray-400">{t('login.or')}</span>
-                    </div>
-                </div>
-
-                <form onSubmit={submit}>
+                <form onSubmit={submit} className="mt-6">
                     <div>
                         <InputLabel htmlFor="email" value={t('login.username')} />
                         <TextInput
@@ -184,16 +151,30 @@ export default function LoginForm({
                     </PrimaryButton>
                 </form>
 
+                <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-gray-200 dark:border-gray-600" />
+                    </div>
+                    <div className="relative flex justify-center">
+                        <span className="bg-white px-2 text-sm text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                            {t('login.or')}
+                        </span>
+                    </div>
+                </div>
+
+                <a
+                    href={route('auth.google.redirect')}
+                    className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                >
+                    <GoogleLogo />
+                    {t('login.continue_with_google')}
+                </a>
+
                 {showFooter && (
                     <div className="mt-6 flex flex-col items-center gap-2">
                         <p className="text-center text-xs text-gray-400 dark:text-gray-500">
                             {t('login.secured_by')} {appName || 'GV Trucking'}
                         </p>
-                        {appDebug && (
-                            <p className="text-center text-xs font-medium text-orange-500 dark:text-orange-400">
-                                {t('login.development_mode')}
-                            </p>
-                        )}
                     </div>
                 )}
             </div>

@@ -21,7 +21,7 @@ export default function AuthenticatedLayout({ header, children, sidebar = null }
     }, [openProfileModal]);
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="admin-ui-scale flex min-h-screen flex-col bg-gray-100 dark:bg-gray-900">
             <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
                 <div className="w-full px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
@@ -187,7 +187,7 @@ export default function AuthenticatedLayout({ header, children, sidebar = null }
                 </div>
             </nav>
 
-            <div className={sidebar ? 'flex min-h-[calc(100vh-4rem)]' : ''}>
+            <div className={sidebar ? 'flex min-h-0 flex-1' : 'flex-1'}>
                 {sidebar && (
                     <div
                         className={

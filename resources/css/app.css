@@ -29,4 +29,25 @@
     .gv-shadow-soft {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     }
+
+    /*
+     * Compact admin UI (~browser zoom 80%).
+     * zoom also shrinks layout size, so height is boosted to 100/0.8
+     * so the shell still fills the viewport after scaling.
+     */
+    .admin-ui-scale {
+        zoom: 0.8;
+        min-height: 125vh !important;
+        min-height: 125dvh !important;
+    }
+
+    @supports not (zoom: 1) {
+        .admin-ui-scale {
+            transform: scale(0.8);
+            transform-origin: top left;
+            width: 125%;
+            min-height: 125vh !important;
+            min-height: 125dvh !important;
+        }
+    }
 }

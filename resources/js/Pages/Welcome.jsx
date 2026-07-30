@@ -68,7 +68,6 @@ export default function Welcome() {
             <Modal show={showLoginModal} onClose={closeLoginModal} maxWidth="md" align="top">
                 <div className="p-8">
                     <LoginForm
-                        onClose={closeLoginModal}
                         canResetPassword={canResetPassword}
                         googleConfigured={googleConfigured}
                         showFooter={true}
