@@ -1,7 +1,7 @@
 import LoginForm from '@/Components/LoginForm';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Login({ status, error, canResetPassword, microsoftConfigured = false }) {
+export default function Login({ status, error, canResetPassword, googleConfigured = false }) {
     return (
         <>
             <Head title="Log in" />
@@ -22,7 +22,7 @@ export default function Login({ status, error, canResetPassword, microsoftConfig
                             canResetPassword={canResetPassword}
                             status={status}
                             error={error}
-                            microsoftConfigured={microsoftConfigured}
+                            googleConfigured={googleConfigured}
                             showFooter={true}
                             isModal={false}
                         />

@@ -11,14 +11,14 @@ use Inertia\Inertia;
 Route::get('/locale/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 
 Route::get('/', function () {
-    $clientId = config('services.microsoft.client_id');
-    $redirectUri = config('services.microsoft.redirect');
+    $clientId = config('services.google.client_id');
+    $redirectUri = config('services.google.redirect');
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'canResetPassword' => Route::has('password.request'),
-        'microsoftConfigured' => !empty($clientId) && !empty($redirectUri),
+        'googleConfigured' => !empty($clientId) && !empty($redirectUri),
         'loginError' => session('error'),
         'loginErrorDetail' => session('login_error_detail'),
         'openLoginModal' => session()->pull('openLoginModal', false),

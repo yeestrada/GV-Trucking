@@ -51,10 +51,9 @@ export default function ResetPassword({ token, email }) {
                     <div className="w-full max-w-md rounded-2xl bg-white/95 p-8 shadow-xl backdrop-blur-sm dark:bg-gray-900/95">
                         <div className="mb-6 text-center">
                             <img
-                                src="/images/WEC_Horizontal_Black.png"
+                                src="/images/GV_Trucking_Logo.png"
                                 alt={appName || t('Welcome')}
-                                className="mx-auto h-10 w-auto object-contain object-center"
-                                style={{ filter: 'brightness(0) invert(1)' }}
+                                className="mx-auto h-24 w-auto object-contain object-center"
                             />
                         </div>
 

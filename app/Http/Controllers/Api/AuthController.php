@@ -111,7 +111,7 @@ class AuthController extends Controller
             ] : null,
             'created_at' => $user->created_at,
             'updated_at' => $user->updated_at,
-            // Explicitly exclude: password, remember_token, azure_id, etc.
+            // Explicitly exclude: password, remember_token, google_id, etc.
         ];
     }
 }

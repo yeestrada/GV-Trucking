@@ -45,7 +45,7 @@ class AuthControllerTest extends TestCase
         // Verify sensitive fields are not exposed
         $response->assertJsonMissing(['password']);
         $response->assertJsonMissing(['remember_token']);
-        $response->assertJsonMissing(['azure_id']);
+        $response->assertJsonMissing(['google_id']);
         
         $this->assertDatabaseHas('users', [
             'name' => 'Test User',

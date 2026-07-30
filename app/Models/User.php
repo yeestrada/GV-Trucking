@@ -23,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'azure_id',
+        'google_id',
         'role_id',
     ];
 

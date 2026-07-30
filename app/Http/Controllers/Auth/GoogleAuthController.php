@@ -9,47 +9,51 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
-class MicrosoftAuthController extends Controller
+class GoogleAuthController extends Controller
 {
-    protected function getBaseUrl(): string
+    protected function getAuthorizeUrl(): string
     {
-        $tenant = config('services.microsoft.tenant', 'common');
-        return "https://login.microsoftonline.com/{$tenant}/oauth2/v2.0";
+        return 'https://accounts.google.com/o/oauth2/v2/auth';
+    }
+
+    protected function getTokenUrl(): string
+    {
+        return 'https://oauth2.googleapis.com/token';
     }
 
     /**
-     * Redirect to Microsoft authorization (Authorization Code flow).
+     * Redirect to Google authorization (Authorization Code flow).
      */
     public function redirect(Request $request): RedirectResponse
     {
-        $clientId = config('services.microsoft.client_id');
-        $redirectUri = config('services.microsoft.redirect');
+        $clientId = config('services.google.client_id');
+        $redirectUri = config('services.google.redirect');
 
         if (empty($clientId) || empty($redirectUri)) {
-            return redirect()->back()->with('error', __('Microsoft sign-in is not configured. Set MICROSOFT_CLIENT_ID and MICROSOFT_REDIRECT_URI in .env.'));
+            return redirect()->back()->with('error', __('Google sign-in is not configured. Set GOOGLE_CLIENT_ID and GOOGLE_REDIRECT_URI in .env.'));
         }
 
-        // Signed state: no session/cookie needed when returning from Microsoft (avoids state mismatch)
+        // Signed state: no session/cookie needed when returning from Google (avoids state mismatch)
         $state = $this->createSignedState();
 
         $params = [
             'client_id' => $clientId,
             'response_type' => 'code',
             'redirect_uri' => $redirectUri,
-            'response_mode' => 'query',
-            'scope' => implode(' ', config('services.microsoft.scopes', ['openid', 'email', 'profile'])),
+            'scope' => implode(' ', config('services.google.scopes', ['openid', 'email', 'profile'])),
             'state' => $state,
+            'access_type' => 'online',
+            'prompt' => 'select_account',
         ];
 
-        $url = $this->getBaseUrl() . '/authorize?' . http_build_query($params);
-        return redirect()->away($url);
+        return redirect()->away($this->getAuthorizeUrl() . '?' . http_build_query($params));
     }
 
     /**
-     * Handle callback from Microsoft: validate state, exchange code for tokens, find or create user, log in.
+     * Handle callback from Google: validate state, exchange code for tokens, find or create user, log in.
      */
     public function callback(Request $request): RedirectResponse
     {
@@ -60,31 +64,31 @@ class MicrosoftAuthController extends Controller
 
         $receivedState = $request->input('state');
         if (!$this->verifySignedState($receivedState)) {
-            logger()->warning('Microsoft OAuth state invalid or expired', [
+            logger()->warning('Google OAuth state invalid or expired', [
                 'received_length' => strlen($receivedState),
             ]);
-            $msg = __('auth.microsoft_failed');
+            $msg = __('auth.google_failed');
             if (config('app.debug')) {
-                $msg .= ' ' . __('auth.microsoft_error_state');
+                $msg .= ' ' . __('auth.google_error_state');
             }
             return redirect('/')->with('error', $msg);
         }
 
-        $tokenResponse = Http::asForm()->post($this->getBaseUrl() . '/token', [
-            'client_id' => config('services.microsoft.client_id'),
-            'client_secret' => config('services.microsoft.client_secret'),
+        $tokenResponse = Http::asForm()->post($this->getTokenUrl(), [
+            'client_id' => config('services.google.client_id'),
+            'client_secret' => config('services.google.client_secret'),
             'code' => $request->input('code'),
-            'redirect_uri' => config('services.microsoft.redirect'),
+            'redirect_uri' => config('services.google.redirect'),
             'grant_type' => 'authorization_code',
         ]);
 
         if (!$tokenResponse->successful()) {
             $body = $tokenResponse->json();
-            logger()->error('Microsoft OAuth token request failed', [
+            logger()->error('Google OAuth token request failed', [
                 'status' => $tokenResponse->status(),
                 'body' => $body,
             ]);
-            $msg = __('auth.microsoft_failed');
+            $msg = __('auth.google_failed');
             if (config('app.debug') && is_array($body)) {
                 $detail = $body['error_description'] ?? $body['error'] ?? json_encode($body);
                 $request->session()->flash('login_error_detail', $detail);
@@ -95,10 +99,10 @@ class MicrosoftAuthController extends Controller
         $tokenData = $tokenResponse->json();
         $idToken = $tokenData['id_token'] ?? null;
         if (!$idToken) {
-            logger()->error('Microsoft OAuth: id_token missing from token response', [
+            logger()->error('Google OAuth: id_token missing from token response', [
                 'tokenData' => $tokenData,
             ]);
-            $msg = __('auth.microsoft_failed');
+            $msg = __('auth.google_failed');
             if (config('app.debug') && is_array($tokenData)) {
                 $request->session()->flash('login_error_detail', 'id_token missing. Response: ' . json_encode($tokenData));
             }
@@ -107,57 +111,54 @@ class MicrosoftAuthController extends Controller
 
         $payload = $this->decodeJwtPayload($idToken);
         if (!$payload) {
-            logger()->error('Microsoft OAuth: failed to decode id_token payload', [
+            logger()->error('Google OAuth: failed to decode id_token payload', [
                 'id_token' => $idToken,
             ]);
-            return redirect('/')->with('error', __('auth.microsoft_failed'));
+            return redirect('/')->with('error', __('auth.google_failed'));
         }
 
-        $azureId = $payload['oid'] ?? $payload['sub'] ?? null;
-        $email = $payload['email'] ?? $payload['preferred_username'] ?? null;
+        $googleId = $payload['sub'] ?? null;
+        $email = $payload['email'] ?? null;
         $name = $payload['name'] ?? trim(($payload['given_name'] ?? '') . ' ' . ($payload['family_name'] ?? '')) ?: $email;
 
-        if (!$azureId || !$email) {
-            logger()->error('Microsoft OAuth: missing azureId or email in id_token payload', [
+        if (!$googleId || !$email) {
+            logger()->error('Google OAuth: missing googleId or email in id_token payload', [
                 'payload' => $payload,
-                'azureId' => $azureId,
+                'googleId' => $googleId,
                 'email' => $email,
             ]);
-            return redirect('/')->with('error', __('auth.microsoft_failed'));
+            return redirect('/')->with('error', __('auth.google_failed'));
         }
 
-        $user = User::where('azure_id', $azureId)->first()
+        $user = User::where('google_id', $googleId)->first()
             ?? User::where('email', $email)->first();
 
         $userRole = Role::where('slug', 'user')->first();
 
         if (!$user) {
-            // Create new user with default "user" role
             $user = User::create([
                 'name' => $name,
                 'email' => $email,
-                'azure_id' => $azureId,
+                'google_id' => $googleId,
                 'password' => null,
                 'email_verified_at' => now(),
                 'role_id' => $userRole?->id,
             ]);
         } else {
-            // Update existing user
             $updates = [];
-            
-            if (empty($user->azure_id)) {
-                $updates['azure_id'] = $azureId;
+
+            if (empty($user->google_id)) {
+                $updates['google_id'] = $googleId;
             }
-            
+
             if (empty($user->email_verified_at)) {
                 $updates['email_verified_at'] = now();
             }
-            
-            // Assign default "user" role if user doesn't have a role
+
             if (empty($user->role_id) && $userRole) {
                 $updates['role_id'] = $userRole->id;
             }
-            
+
             if (!empty($updates)) {
                 $user->update($updates);
             }
@@ -190,7 +191,7 @@ class MicrosoftAuthController extends Controller
     }
 
     /**
-     * Verify the signed state returned by Microsoft.
+     * Verify the signed state returned by Google.
      */
     protected function verifySignedState(string $state): bool
     {

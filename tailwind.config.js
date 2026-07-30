@@ -89,11 +89,41 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
-                poppins: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                display: ['Oswald', ...defaultTheme.fontFamily.sans],
+                poppins: ['Figtree', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             },
             colors: {
                 ...equiforgeColors,
+                gv: {
+                    ink: '#070b12',
+                    'ink-soft': '#101820',
+                    navy: '#0c1b33',
+                    blue: '#1e4d9c',
+                    'blue-bright': '#2f6fd1',
+                    'blue-deep': '#14356e',
+                    steel: '#8b95a5',
+                    chrome: '#c9d4e8',
+                    mist: '#d5dbe6',
+                    paper: '#f0f3f7',
+                    slate: '#5a6472',
+                },
+            },
+            keyframes: {
+                rise: {
+                    '0%': { opacity: '0', transform: 'translateY(18px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                'fade-in': {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' },
+                },
+            },
+            animation: {
+                rise: 'rise 0.8s ease-out both',
+                'rise-delay': 'rise 0.8s ease-out 0.15s both',
+                'rise-delay-2': 'rise 0.8s ease-out 0.3s both',
+                'fade-in': 'fade-in 1s ease-out both',
             },
             fontSize: {
                 'ef-h1': ['48px', { lineHeight: '54px' }],

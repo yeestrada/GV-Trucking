@@ -16,9 +16,9 @@
         </script>
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts - EquiForge Design System -->
+        <!-- Fonts — GV Trucking (Oswald display + Figtree body, same structure as Lawn Rescue) -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=poppins:300,400,500,600,700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=oswald:500,600,700|figtree:300,400,500,600,700&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @routes
