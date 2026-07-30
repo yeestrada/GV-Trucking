@@ -1,0 +1,59 @@
+import { Link, usePage } from '@inertiajs/react';
+
+function DashboardIcon({ className = 'h-4 w-4' }) {
+    return (
+        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"
+            />
+        </svg>
+    );
+}
+
+export default function UserSidebar({ sidebarOpen = true, onToggleSidebar }) {
+    const { translations = {} } = usePage().props;
+    const t = (key) => translations[key] ?? key;
+    const current = route().current();
+
+    return (
+        <aside className="flex h-full flex-col">
+            <div className={`flex items-center gap-1 px-2 py-2 ${sidebarOpen ? '' : 'justify-center'}`}>
+                <Link
+                    href={route('dashboard')}
+                    className={
+                        'flex min-w-0 flex-1 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition ' +
+                        (current === 'dashboard'
+                            ? 'bg-primary-50 text-primary-700 dark:bg-primary-500/30 dark:text-gray-100'
+                            : 'text-gray-600 hover:bg-white hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100')
+                    }
+                >
+                    <DashboardIcon />
+                    {sidebarOpen && <span className="truncate">{t('dashboard.user.title')}</span>}
+                </Link>
+                <button
+                    type="button"
+                    onClick={onToggleSidebar}
+                    className="flex shrink-0 items-center justify-center rounded-lg p-2 text-gray-500 transition hover:bg-white hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100"
+                    aria-label={sidebarOpen ? t('admin.menu.collapse') : t('admin.menu.expand')}
+                    title={sidebarOpen ? t('admin.menu.collapse') : t('admin.menu.expand')}
+                >
+                    {sidebarOpen ? (
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                        </svg>
+                    ) : (
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                        </svg>
+                    )}
+                </button>
+            </div>
+            <nav className={`flex flex-1 flex-col gap-1 px-4 pb-4 pt-1 ${sidebarOpen ? '' : 'hidden'}`}>
+                {/* Empty nav - Dashboard is now in the header */}
+            </nav>
+        </aside>
+    );
+}
