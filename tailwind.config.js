@@ -1,8 +1,8 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
-/** EquiForge Design System - colors from resources/css/equiforge.css */
-const equiforgeColors = {
+/** Design tokens — colors from resources/css/design-tokens.css */
+const designTokenColors = {
     primary: {
         100: '#f3eef2',
         200: '#cdbac7',
@@ -94,7 +94,7 @@ export default {
                 poppins: ['Figtree', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             },
             colors: {
-                ...equiforgeColors,
+                ...designTokenColors,
                 gv: {
                     ink: '#070b12',
                     'ink-soft': '#101820',
@@ -126,28 +126,28 @@ export default {
                 'fade-in': 'fade-in 1s ease-out both',
             },
             fontSize: {
-                'ef-h1': ['48px', { lineHeight: '54px' }],
-                'ef-h2': ['40px', { lineHeight: '48px' }],
-                'ef-h3': ['32px', { lineHeight: '40px' }],
-                'ef-h4': ['32px', { lineHeight: '40px' }],
-                'ef-h5': ['28px', { lineHeight: '36px' }],
-                'ef-h6': ['24px', { lineHeight: '30px' }],
-                'ef-p': ['16px', { lineHeight: '22px' }],
-                'ef-label': ['14px', { lineHeight: '18px' }],
-                'ef-small': ['12px', { lineHeight: '16px' }],
-                'ef-xsmall': ['10px', { lineHeight: '14px' }],
+                'ui-h1': ['48px', { lineHeight: '54px' }],
+                'ui-h2': ['40px', { lineHeight: '48px' }],
+                'ui-h3': ['32px', { lineHeight: '40px' }],
+                'ui-h4': ['32px', { lineHeight: '40px' }],
+                'ui-h5': ['28px', { lineHeight: '36px' }],
+                'ui-h6': ['24px', { lineHeight: '30px' }],
+                'ui-p': ['16px', { lineHeight: '22px' }],
+                'ui-label': ['14px', { lineHeight: '18px' }],
+                'ui-small': ['12px', { lineHeight: '16px' }],
+                'ui-xsmall': ['10px', { lineHeight: '14px' }],
             },
             letterSpacing: {
-                'ef-tight': '0.02em',
-                'ef-normal': '0.03em',
-                'ef-wide': '0.05em',
+                'ui-tight': '0.02em',
+                'ui-normal': '0.03em',
+                'ui-wide': '0.05em',
             },
             fontWeight: {
-                'ef-light': '300',
-                'ef-regular': '400',
-                'ef-medium': '500',
-                'ef-semibold': '600',
-                'ef-bold': '700',
+                'ui-light': '300',
+                'ui-regular': '400',
+                'ui-medium': '500',
+                'ui-semibold': '600',
+                'ui-bold': '700',
             },
         },
     },

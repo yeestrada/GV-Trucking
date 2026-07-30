@@ -1,0 +1,240 @@
+﻿/**
+ * GV Trucking design tokens — color scales and typography
+ * Use via CSS variables (var(--ui-*)) or Tailwind classes (primary-500, danger-600, etc.)
+ */
+
+:root {
+  /* Primary (purple-pink) - Base #815374 */
+  --ui-primary-100: #f3eef2;
+  --ui-primary-200: #cdbac7;
+  --ui-primary-300: #b398ac;
+  --ui-primary-400: #9a7590;
+  --ui-primary-500: #815374;
+  --ui-primary-600: #67425d;
+  --ui-primary-700: #4d3246;
+  --ui-primary-800: #34212e;
+
+  /* Secondary (teal) - Base #4D868E */
+  --ui-secondary-100: #dbe7e8;
+  --ui-secondary-200: #b8cfd2;
+  --ui-secondary-300: #94b6bb;
+  --ui-secondary-400: #719ea5;
+  --ui-secondary-500: #4d868e;
+  --ui-secondary-600: #3e6b72;
+  --ui-secondary-700: #2e5055;
+  --ui-secondary-800: #1f3639;
+
+  /* Success (green) - Base #4EA685 */
+  --ui-success-100: #dcede7;
+  --ui-success-200: #b8dbce;
+  --ui-success-300: #95cab6;
+  --ui-success-400: #71b89d;
+  --ui-success-500: #4ea685;
+  --ui-success-600: #3e856a;
+  --ui-success-700: #2f6450;
+  --ui-success-800: #1f4235;
+
+  /* Warning (yellow-orange) - Base #FFC627 */
+  --ui-warning-100: #fff4d4;
+  --ui-warning-200: #ffe8a9;
+  --ui-warning-300: #ffdd7d;
+  --ui-warning-400: #ffd152;
+  --ui-warning-500: #ffc627;
+  --ui-warning-600: #cc9e1f;
+  --ui-warning-700: #997717;
+  --ui-warning-800: #664f10;
+
+  /* Danger (red) - Base #B82020 */
+  --ui-danger-100: #f8e9e9;
+  --ui-danger-200: #e3a6a6;
+  --ui-danger-300: #d47979;
+  --ui-danger-400: #c64d4d;
+  --ui-danger-500: #b82020;
+  --ui-danger-600: #931a1a;
+  --ui-danger-700: #6e1313;
+  --ui-danger-800: #4a0d0d;
+
+  /* Info (blue) - Base #0284C7 */
+  --ui-info-100: #e6f3fa;
+  --ui-info-200: #9acee9;
+  --ui-info-300: #67b5dd;
+  --ui-info-400: #359dd2;
+  --ui-info-500: #0284c7;
+  --ui-info-600: #026a9f;
+  --ui-info-700: #014f77;
+  --ui-info-800: #013550;
+
+  /* Black (grayscale) - Base #0A0203 */
+  --ui-black-100: #e7e6e6;
+  --ui-black-200: #9d9a9a;
+  --ui-black-300: #6c6768;
+  --ui-black-400: #3b3535;
+  --ui-black-500: #0a0203;
+
+  /* Custom */
+  --ui-custom-silver: #a7a7a7;
+  --ui-custom-neutral: #fff8f3;
+
+  /* Typography */
+  --ui-font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --ui-text-color: #0a0203;
+  --ui-text-inverse: #ffffff;
+  --ui-font-weight-light: 300;
+  --ui-font-weight-regular: 400;
+  --ui-font-weight-medium: 500;
+  --ui-font-weight-semibold: 600;
+  --ui-font-weight-bold: 700;
+
+  /* Headings */
+  --ui-h1-size: 48px;
+  --ui-h1-height: 54px;
+  --ui-h1-weight: 300;
+  --ui-h1-spacing: 0;
+
+  --ui-h2-size: 40px;
+  --ui-h2-height: 48px;
+  --ui-h2-weight: 300;
+  --ui-h2-spacing: 0.03em;
+
+  --ui-h3-size: 32px;
+  --ui-h3-height: 40px;
+  --ui-h3-weight: 300;
+  --ui-h3-spacing: 0.02em;
+
+  --ui-h4-size: 32px;
+  --ui-h4-height: 40px;
+  --ui-h4-weight: 700;
+  --ui-h4-spacing: 0.02em;
+
+  --ui-h5-size: 28px;
+  --ui-h5-height: 36px;
+  --ui-h5-weight: 700;
+  --ui-h5-spacing: 0.02em;
+
+  --ui-h6-size: 24px;
+  --ui-h6-height: 30px;
+  --ui-h6-weight: 700;
+  --ui-h6-spacing: 0.03em;
+
+  /* Body & UI */
+  --ui-p-size: 16px;
+  --ui-p-height: 22px;
+  --ui-p-weight: 300;
+  --ui-p-spacing: 0.05em;
+
+  --ui-label-size: 14px;
+  --ui-label-height: 18px;
+  --ui-label-weight: 500;
+  --ui-label-spacing: 0.05em;
+
+  --ui-small-size: 12px;
+  --ui-small-height: 16px;
+  --ui-small-weight: 300;
+  --ui-small-spacing: 0.05em;
+
+  --ui-xsmall-size: 10px;
+  --ui-xsmall-height: 14px;
+  --ui-xsmall-weight: 400;
+  --ui-xsmall-spacing: 0.05em;
+}
+
+/* Optional typography helpers (wrapper class: .ui-typography) */
+.ui-typography h1,
+.ui-type-h1 {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-h1-weight);
+  font-size: var(--ui-h1-size);
+  line-height: var(--ui-h1-height);
+  letter-spacing: var(--ui-h1-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography h2,
+.ui-type-h2 {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-h2-weight);
+  font-size: var(--ui-h2-size);
+  line-height: var(--ui-h2-height);
+  letter-spacing: var(--ui-h2-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography h3,
+.ui-type-h3 {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-h3-weight);
+  font-size: var(--ui-h3-size);
+  line-height: var(--ui-h3-height);
+  letter-spacing: var(--ui-h3-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography h4,
+.ui-type-h4 {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-h4-weight);
+  font-size: var(--ui-h4-size);
+  line-height: var(--ui-h4-height);
+  letter-spacing: var(--ui-h4-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography h5,
+.ui-type-h5 {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-h5-weight);
+  font-size: var(--ui-h5-size);
+  line-height: var(--ui-h5-height);
+  letter-spacing: var(--ui-h5-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography h6,
+.ui-type-h6 {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-h6-weight);
+  font-size: var(--ui-h6-size);
+  line-height: var(--ui-h6-height);
+  letter-spacing: var(--ui-h6-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography p,
+.ui-type-p {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-p-weight);
+  font-size: var(--ui-p-size);
+  line-height: var(--ui-p-height);
+  letter-spacing: var(--ui-p-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography label,
+.ui-type-label {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-label-weight);
+  font-size: var(--ui-label-size);
+  line-height: var(--ui-label-height);
+  letter-spacing: var(--ui-label-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography .small,
+.ui-type-small {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-small-weight);
+  font-size: var(--ui-small-size);
+  line-height: var(--ui-small-height);
+  letter-spacing: var(--ui-small-spacing);
+  color: var(--ui-text-color);
+}
+
+.ui-typography .xsmall,
+.ui-type-xsmall {
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-xsmall-weight);
+  font-size: var(--ui-xsmall-size);
+  line-height: var(--ui-xsmall-height);
+  letter-spacing: var(--ui-xsmall-spacing);
+  color: var(--ui-text-color);
+}
